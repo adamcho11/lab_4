@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administrador</title>
+    <script src="admin.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .contenedor-principal {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .titulo-principal {
+            color: #333;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .grupo-botones {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .boton {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .boton-activo {
+            background-color: #0056b3;
+            color: white;
+        }
+        
+        .boton-inactivo {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        .boton-accion {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .boton-peligro {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .tabla-usuarios {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .tabla-usuarios th, .tabla-usuarios td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tabla-usuarios th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        
+        .tabla-usuarios tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .modal-contenido {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 500px;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .form-grupo {
+            margin-bottom: 15px;
+        }
+        
+        .form-grupo label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .form-grupo input,
+        .form-grupo select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .Salir {
+            text-decoration: none;
+            color: #000000;
+            font-weight: bold;
+            float: right;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor-principal">
+        <div class="titulo-cerrar">
+            <h1 class="titulo-principal">Panel de Administrador</h1>
+            <a class="Salir" href="../../indice.php">Cerrar Sesion</a>
+        </div>
+        
+        <!-- Sección de Gestión de Usuarios -->
+        <div class="seccion">
+            <h2>Gestión de Usuarios</h2>
+            <button class="boton boton-accion" onclick="mostrarModalCrearUsuario()">Crear Usuario</button>
+            <table class="tabla-usuarios">
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Rol</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-usuarios-body">
+                    <!-- Los usuarios se cargarán aquí dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Modal para Crear/Editar Usuario -->
+        <div id="modal-usuario" class="modal">
+            <div class="modal-contenido">
+                <span class="cerrar-modal" onclick="cerrarModal('modal-usuario')">&times;</span>
+                <h2 id="modal-titulo">Crear Usuario</h2>
+                <form id="form-usuario" onsubmit="guardarUsuario(event)">
+                    <input type="hidden" id="usuario-id">
+                    <div class="form-grupo">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-grupo">
+                        <label for="password">Contraseña:</label>
+                        <input type="password" id="password" required>
+                    </div>
+                    <div class="form-grupo">
+                        <label for="rol">Rol:</label>
+                        <select id="rol" required>
+                            <option value="admin">Administrador</option>
+                            <option value="usuario">Usuario</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="boton boton-accion">Guardar</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal para Enviar Aviso Masivo -->
+        <div class="seccion">
+            <h2>Enviar Aviso Masivo</h2>
+            <button class="boton boton-accion" onclick="mostrarModalAviso()">Nuevo Aviso</button>
+        </div>
+
+        <div id="modal-aviso" class="modal">
+            <div class="modal-contenido">
+                <span class="cerrar-modal" onclick="cerrarModal('modal-aviso')">&times;</span>
+                <h2>Enviar Aviso a Todos los Usuarios</h2>
+                <form id="form-aviso" onsubmit="enviarAvisoMasivo(event)">
+                    <div class="form-grupo">
+                        <label for="asunto">Asunto:</label>
+                        <input type="text" id="asunto-aviso" required>
+                    </div>
+                    <div class="form-grupo">
+                        <label for="mensaje-aviso">Mensaje:</label>
+                        <textarea id="mensaje-aviso" required></textarea>
+                    </div>
+                    <button type="submit" class="boton boton-accion">Enviar Aviso</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

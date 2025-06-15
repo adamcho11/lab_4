@@ -1,0 +1,108 @@
+#body{
+    background-color: #a4a6a8;
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', serif;
+}
+.contenido{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(255, 6, 6);
+    padding: auto;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+}
+.contenido #link-login{
+    padding: 20px;
+}
+.contenido div a{
+    text-decoration: none;
+    color: #fff;
+    border-bottom: black 2px solid;
+    padding: 10px;
+}
+.contenido div a:hover{
+    background-color: #f19595;
+    border-bottom: #fff 2px solid;
+
+}
+.contenido_2{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    margin: auto;
+    padding: auto;
+}
+
+
+.body-login {
+    font-family: 'Times New Roman', serif;
+    background-color: #a4a6a8;
+    margin: 0;
+    padding: 80px 20px;
+    text-align: center;
+    min-height: 100vh;
+}
+
+.form-login {
+    background-color: #ffffff;
+    padding: 50px 40px;
+    border-radius: 3px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    width: 420px;
+    margin: 0 auto;
+    border: 1px solid #e8e8e8;
+    border-top: 4px solid #1a252f;
+}
+
+.label-login {
+    display: block;
+    margin-bottom: 8px;
+    color: #1a252f;
+    font-weight: 600;
+    font-size: 13px;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.input-login {
+    width: 100%;
+    padding: 16px 14px;
+    margin-bottom: 25px;
+    border: 1px solid #d5d5d5;
+    border-radius: 2px;
+    font-size: 15px;
+    background-color: #fafafa;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+.input-login:focus {
+    border-color: #1a252f;
+    background-color: #ffffff;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(26, 37, 47, 0.1);
+}
+
+.button-login {
+    width: 100%;
+    padding: 16px;
+    background-color: #1a252f;
+    color: #ffffff;
+    border: none;
+    border-radius: 2px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Arial', sans-serif;
+}
+
+.button-login:hover {
+    background-color: #0f1419;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}

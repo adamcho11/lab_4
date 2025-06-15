@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="ajax.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="body">
+    <form class="form-login" id="formlogin" action="javascript:verificarsesion()" method="post" >
+        <label for="correo" class="label-login">Correo:</label>
+        <input class="input-login" type="email" id="correo" name="correo" required>
+        <br><br>
+        <label for="password" class="label-login">Contraseña:</label>
+        <input class="input-login" type="password" id="password" name="password" required>
+        <br><br>
+        <input type="submit" value="Enviar" class="button-login">
+    </form>
+</body>
+</html>
